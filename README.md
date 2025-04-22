@@ -1,1 +1,2 @@
-AuthServer for the Software Security class.
+# AuthServer for the Software Security class.
+By Pedro Galego (72298) and Pedro Mascarenhas ( )
