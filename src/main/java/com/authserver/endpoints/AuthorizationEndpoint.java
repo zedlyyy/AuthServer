@@ -41,9 +41,9 @@ public class AuthorizationEndpoint {
     @GetMapping
     public ResponseEntity<?> authorize(@RequestParam String responseType, String redirectURL, String scope, String state, String clientID) {
         
-        Optional<Client> clientOpt = crudClients.findById(clientID);
+        Optional<Client> optionalClient = crudClients.findById(clientID);
         
-        if(clientOpt.isEmpty()) {
+        if(optionalClient.isEmpty()) {
             return ResponseEntity.badRequest().body("Invalid clientId !");
         }
         

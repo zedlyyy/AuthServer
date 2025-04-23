@@ -9,11 +9,14 @@ public class Client {
     @Id
     private String clientId;
 
+
+    private String clientSecret;
     private String clientURL;
 
     
-    public Client (String clientId, String clientURL){
+    public Client (String clientId,String clientSecret, String clientURL){
         this.clientId = clientId;
+        this.clientSecret = clientSecret;
         this.clientURL = clientURL;
     }
 
@@ -23,6 +26,14 @@ public class Client {
 
     public String getClientId() {
         return this.clientId;
+    }
+
+    public void setClientSecret(String newClientSecret){
+        this.clientSecret = newClientSecret;
+    }
+
+    public String getClientScrect(){
+        return this.clientSecret;
     }
 
     public void setClientURL (String newClientURL) {

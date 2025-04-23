@@ -29,10 +29,11 @@ public class RegistrationEndpoint {
     @PostMapping("/client")
     public ResponseEntity<String> registerClient(@RequestBody clientDTO clientDTO) {
     String clientId = clientDTO.clientId;
+    String clientSecret = clientDTO.clientSecret;
     String clientURL = clientDTO.clientURL;
 
         
-    Client client = new Client(clientId, clientURL);
+    Client client = new Client(clientId, clientSecret, clientURL);
     crudClients.save(client);
 
     return ResponseEntity.ok("Client registered");
@@ -52,6 +53,8 @@ public class RegistrationEndpoint {
     return ResponseEntity.ok("User registered");
     
     }
+
+    
 
 
 
