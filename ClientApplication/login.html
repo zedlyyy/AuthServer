@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<script src="index.js"></script>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Simple OAuth Client</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #0d0d0d;
+      color: #f5f5f5;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .container {
+      background-color: #1a1a1a;
+      border-radius: 16px;
+      padding: 40px;
+      text-align: center;
+      box-shadow: 0 2px 0px rgba(255, 255, 255, 0.05);
+    }
+
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 20px;
+      color: #ffffff;
+    }
+
+    button {
+      font-size: 1rem;
+      padding: 12px 24px;
+      background-color: #00c896;
+      border: none;
+      border-radius: 8px;
+      color: white;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #00a77b;
+    }
+
+    button:active {
+      background-color: #007a5a;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h1>OAuth Client</h1>
+  <button onclick="startOAuth()">Login via OAuth</button>
+</div>
+
+</body>
+</html>

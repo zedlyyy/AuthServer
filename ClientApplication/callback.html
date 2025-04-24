@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head><title>Callback</title></head>
+<body>
+<h1>OAuth Callback</h1>
+<script>
+  const urlParams = new URLSearchParams(window.location.search);
+  const code = urlParams.get('code');
+  const state = urlParams.get('state');
+
+  document.body.innerHTML += `<p>Code: ${code}</p><p>State: ${state}</p>`;
+  document.body.innerHTML += `<button onclick="getToken()">Get Token</button>`;
+  document.body.innerHTML += `<pre id="tokenDisplay">No token yet</pre>`;
+
+  const clientId = 'client1';
+
+  async function getToken() {
+      const payload = {
+          code: code,
+          clientId: clientId,
+          clientSecret: "password",
+          clientURL: "http://localhost:63343/SS_client_p1/login.html"
+      };
+
+      try {
+          const response = await fetch("http://localhost:8080/token", {
+              method: "POST",
+              headers: {
+                  "Content-Type": "application/json"
+              },
+              body: JSON.stringify(payload)
+          });
+
+          const data = await response.json();
+
+          if (response.ok) {
+              document.getElementById("tokenDisplay").textContent = data.accessToken;
+          } else {
+              document.getElementById("tokenDisplay").textContent = `Error: ${data}`;
+          }
+
+      } catch (error) {
+          document.getElementById("tokenDisplay").textContent = `Error: ${error}`;
+      }
+  }
+</script>
+</body>
+</html>
