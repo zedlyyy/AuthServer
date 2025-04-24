@@ -1,10 +1,17 @@
 package com.authserver.objects;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+
+@Entity
 public class AuthCode {
 
+    @Id
+    private String authCode;
+    
     private String userId;
     private String clientId;
-    private String authCode;
+
 
     public AuthCode(String userId, String clientId, String authCode){
         this.userId = userId;

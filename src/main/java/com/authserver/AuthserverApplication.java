@@ -1,4 +1,4 @@
-package com.authserver.authserver;
+package com.authserver;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
