@@ -2,8 +2,10 @@ package com.authserver.objects;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 @Entity
+@Table(name = "users")
 public class User {
 
     @Id
@@ -11,7 +13,10 @@ public class User {
     
     private String userPass;
 
-    public User (String useString, String userPass){
+    public User (){
+    }
+
+    public User (String userId, String userPass){
         this.userId = userId;
         this.userPass = userPass;
     }

@@ -19,6 +19,9 @@ public class AuthCode {
         this.authCode = authCode;
     }
 
+    public AuthCode(){
+    }
+
     public void setUserId(String newUserId) {
         this.userId = newUserId;
     }

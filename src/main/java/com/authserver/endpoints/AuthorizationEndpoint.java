@@ -1,6 +1,7 @@
 package com.authserver.endpoints;
 
 import java.net.URI;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -38,7 +39,7 @@ public class AuthorizationEndpoint {
     CrudAuthCodes crudCodes;
 
     @GetMapping
-    public ResponseEntity<?> authorize(@RequestParam String responseType, String redirectURL, String scope, String state, String clientID) {
+    public ResponseEntity<?> authorize(@RequestParam String responseType,@RequestParam String redirectURL,@RequestParam String scope,@RequestParam String state,@RequestParam String clientID) {
         
         Optional<Client> optionalClient = crudClients.findById(clientID);
         
@@ -52,16 +53,35 @@ public class AuthorizationEndpoint {
             Este POST tem que conter o username, password, clientId, redirectURL, state
         */
 
-        return ResponseEntity.ok("okay");
+
+        String html = "<html><body>" +
+                "<h2>Auth Server Login</h2>" +
+                "<form method='POST' action='/authorize/confirm'>" +
+                "Username: <input type='text' name='userId'/><br/>" +
+                "Password: <input type='password' name='password'/><br/>" +
+                "<input type='hidden' name='clientId' value='" + clientID + "'/>" +
+                "<input type='hidden' name='redirectURL' value='" + redirectURL + "'/>" +
+                "<input type='hidden' name='state' value='" + state + "'/>" +
+                "<input type='submit' value='Login'/>" +
+                "</form>" +
+                "</body></html>";
+
+        return ResponseEntity.ok().body(html);
+
+        //return ResponseEntity.ok("okay");
 
     }
     
     @PostMapping("/confirm")
-    public ResponseEntity<?> postMethodName(@RequestParam String userId, String password, String clientId, String redirectURL, String state) {
+    public ResponseEntity<?> postMethodName(@RequestParam String userId,@RequestParam String password,@RequestParam String clientId,@RequestParam String redirectURL,@RequestParam String state) {
        
         Optional<User> userOpt = crudUsers.findById(userId);
 
-        if(userOpt.get().getUserPass() != password || userOpt.isEmpty()){
+        if (userOpt.isEmpty()) {
+            return ResponseEntity.badRequest().body("UserId:" + userId + " not found");
+        }
+
+        if(!Objects.equals(userOpt.get().getUserPass(), password)){
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials");
         }
 
@@ -76,7 +96,10 @@ public class AuthorizationEndpoint {
         /*TODO
             Redirecionar o user para o url acima 
         */
-        return null;
+
+        return ResponseEntity.status(HttpStatus.FOUND).location(redirect).build();
+
+        //return null;
     }
     
     

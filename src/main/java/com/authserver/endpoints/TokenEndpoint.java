@@ -10,12 +10,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.authserver.dto.clientAuthDTO;
 import com.authserver.dto.clientDTO;
@@ -31,6 +26,8 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
 
+import javax.crypto.SecretKey;
+
 
 @RestController
 @RequestMapping("/token")
@@ -43,8 +40,10 @@ public class TokenEndpoint {
     @Autowired
     CrudAuthCodes crudCodes;
 
-    private String SECRET_KEY = "secretkey123456:)";
+    private SecretKey secretKey = Keys.secretKeyFor(SignatureAlgorithm.HS256);
 
+
+    @CrossOrigin(origins = "http://localhost:63343")
     @PostMapping
     public ResponseEntity<?> generateToken(@RequestBody clientAuthDTO authDTO) {
 
@@ -76,15 +75,15 @@ public class TokenEndpoint {
 
     AuthCode tokenCode = authCode.get();
 
-    String token = Jwts.builder()
-            .setSubject(tokenCode.getUserId())
-            .setIssuer("authServer")
-            .claim("clientDd", tokenCode.getClientId())
-            .claim("issuedBy", "p&p")
-            .setIssuedAt(Date.from(Instant.now()))
-            .setExpiration(Date.from(Instant.now().plusSeconds(3600)))
-            .signWith(Keys.hmacShaKeyFor(SECRET_KEY.getBytes(StandardCharsets.UTF_8)), SignatureAlgorithm.HS256)
-            .compact();
+        String token = Jwts.builder()
+                .setSubject(tokenCode.getUserId())
+                .setIssuer("authServer")
+                .claim("clientId", tokenCode.getClientId())
+                .claim("issuedBy", "p&p")
+                .setIssuedAt(Date.from(Instant.now()))
+                .setExpiration(Date.from(Instant.now().plusSeconds(3600)))
+                .signWith(secretKey, SignatureAlgorithm.HS256) // Use the secure key here
+                .compact();
     
 
     Map<String, String> accessToken = new HashMap<>();

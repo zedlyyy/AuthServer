@@ -13,6 +13,8 @@ public class Client {
     private String clientSecret;
     private String clientURL;
 
+    public Client() {
+    }
     
     public Client (String clientId,String clientSecret, String clientURL){
         this.clientId = clientId;
