@@ -54,16 +54,65 @@ public class AuthorizationEndpoint {
         */
 
 
-        String html = "<html><body>" +
+        String html = "<html><head>" +
+                "<style>" +
+                "body {" +
+                "    margin: 0;" +
+                "    padding: 0;" +
+                "    height: 100vh;" +
+                "    display: flex;" +
+                "    justify-content: center;" +
+                "    align-items: center;" +
+                "    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;" +
+                "    background: linear-gradient(135deg, #6a11cb, #2575fc);" +
+                "}" +
+                ".login-container {" +
+                "    background: white;" +
+                "    padding: 40px;" +
+                "    border-radius: 12px;" +
+                "    box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.2);" +
+                "    text-align: center;" +
+                "    width: 300px;" +
+                "}" +
+                ".login-container h2 {" +
+                "    margin-bottom: 20px;" +
+                "    color: #333;" +
+                "}" +
+                ".login-container input[type='text'], " +
+                ".login-container input[type='password'] {" +
+                "    width: 100%;" +
+                "    padding: 10px;" +
+                "    margin: 10px 0;" +
+                "    border: 1px solid #ccc;" +
+                "    border-radius: 8px;" +
+                "}" +
+                ".login-container input[type='submit'] {" +
+                "    width: 100%;" +
+                "    padding: 12px;" +
+                "    background-color: #6a11cb;" +
+                "    border: none;" +
+                "    color: white;" +
+                "    font-weight: bold;" +
+                "    border-radius: 8px;" +
+                "    cursor: pointer;" +
+                "    transition: background-color 0.3s ease;" +
+                "}" +
+                ".login-container input[type='submit']:hover {" +
+                "    background-color: #2575fc;" +
+                "}" +
+                "</style>" +
+                "</head><body>" +
+                "<div class='login-container'>" +
                 "<h2>Auth Server Login</h2>" +
                 "<form method='POST' action='/authorize/confirm'>" +
-                "Username: <input type='text' name='userId'/><br/>" +
-                "Password: <input type='password' name='password'/><br/>" +
+                "Username:<br/><input type='text' name='userId'/><br/>" +
+                "Password:<br/><input type='password' name='password'/><br/>" +
                 "<input type='hidden' name='clientId' value='" + clientID + "'/>" +
                 "<input type='hidden' name='redirectURL' value='" + redirectURL + "'/>" +
                 "<input type='hidden' name='state' value='" + state + "'/>" +
                 "<input type='submit' value='Login'/>" +
                 "</form>" +
+                "</div>" +
                 "</body></html>";
 
         return ResponseEntity.ok().body(html);

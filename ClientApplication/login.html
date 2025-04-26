@@ -36,6 +36,16 @@
       color: #ffffff;
     }
 
+    input {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      border: 1px solid #333;
+      background: #262626;
+      color: white;
+    }
+
     button {
       font-size: 1rem;
       padding: 12px 24px;
@@ -47,20 +57,33 @@
       transition: background-color 0.3s ease;
     }
 
-    button:hover {
+    button:disabled {
+      background-color: #555;
+      cursor: not-allowed;
+    }
+
+    button:hover:enabled {
       background-color: #00a77b;
     }
 
-    button:active {
+    button:active:enabled {
       background-color: #007a5a;
     }
   </style>
 </head>
+
 <body>
 <div class="container">
   <h1>OAuth Client</h1>
-  <button onclick="startOAuth()">Login via OAuth</button>
+  <input type="text" id="serverUrl" placeholder="Enter Auth Server URL (e.g., http://localhost:8080)" oninput="checkInput()">
+  <button id="loginButton" onclick="startOAuth()" disabled>Login via OAuth</button>
 </div>
 
+<script>
+  console.log('Thank you for using WebStorm 💙');
+
+</script>
+
 </body>
+
 </html>

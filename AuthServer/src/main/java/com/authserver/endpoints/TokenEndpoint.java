@@ -43,7 +43,7 @@ public class TokenEndpoint {
     private SecretKey secretKey = Keys.secretKeyFor(SignatureAlgorithm.HS256);
 
 
-    @CrossOrigin(origins = "http://localhost:63343")
+    @CrossOrigin(origins = "*")
     @PostMapping
     public ResponseEntity<?> generateToken(@RequestBody clientAuthDTO authDTO) {
 
