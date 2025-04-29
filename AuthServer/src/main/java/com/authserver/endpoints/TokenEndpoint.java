@@ -10,6 +10,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import com.authserver.dto.clientAuthDTO;
@@ -69,7 +70,7 @@ public class TokenEndpoint {
     //Hashed Secret
     BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
-    if(!encoder.matches(currentClient.getClientScrect(), clientSecret)){
+    if(!encoder.matches(clientSecret, currentClient.getClientScrect())){
         return ResponseEntity.badRequest().body("Client secret wrong !");
     }
 

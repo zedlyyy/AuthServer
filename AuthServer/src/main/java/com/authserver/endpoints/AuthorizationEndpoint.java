@@ -41,14 +41,14 @@ public class AuthorizationEndpoint {
 
     @GetMapping
     public ResponseEntity<?> authorize(@RequestParam String responseType,@RequestParam String redirectURL,@RequestParam String scope,@RequestParam String state,@RequestParam String clientID) {
-        
+
         Optional<Client> optionalClient = crudClients.findById(clientID);
-        
+
         if(optionalClient.isEmpty()) {
             return ResponseEntity.badRequest().body("Invalid clientId !");
         }
-        
-        /*TODO 
+
+        /*TODO
             Lançar HTML page para receber username e pass do user
             Depois fazer um POST para /authorize/confirm para confirmar a identidade do user e posteriormente lançar e guardar o authCode para o client
             Este POST tem que conter o username, password, clientId, redirectURL, state
@@ -121,10 +121,10 @@ public class AuthorizationEndpoint {
         //return ResponseEntity.ok("okay");
 
     }
-    
+
     @PostMapping("/confirm")
     public ResponseEntity<?> postMethodName(@RequestParam String userId,@RequestParam String password,@RequestParam String clientId,@RequestParam String redirectURL,@RequestParam String state) {
-       
+
         Optional<User> userOpt = crudUsers.findById(userId);
 
         if (userOpt.isEmpty()) {
@@ -140,7 +140,9 @@ public class AuthorizationEndpoint {
         }
         */
 
-        if(!encoder.matches(userOpt.get().getUserPass(), password)){
+        if(!encoder.matches(password, userOpt.get().getUserPass())){
+            System.out.println(userOpt.get().getUserPass() + "user pass");
+            System.out.println(password + "asdasd");
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials");
         }
 
@@ -151,18 +153,18 @@ public class AuthorizationEndpoint {
 
         crudCodes.save(authCode);
 
-        
+
         URI redirect = URI.create(redirectURL + "?code=" + code + "&state=" + state);
         /*TODO
-            Redirecionar o user para o url acima 
+            Redirecionar o user para o url acima
         */
 
         return ResponseEntity.status(HttpStatus.FOUND).location(redirect).build();
 
         //return null;
     }
-    
-    
+
+
 
 
 }
