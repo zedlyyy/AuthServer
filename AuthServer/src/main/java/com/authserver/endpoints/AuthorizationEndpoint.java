@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.authserver.dto.clientDTO;
 import com.authserver.dto.userDTO;
@@ -130,9 +131,19 @@ public class AuthorizationEndpoint {
             return ResponseEntity.badRequest().body("UserId:" + userId + " not found");
         }
 
+        //Hashed Password
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+
+        /*
         if(!Objects.equals(userOpt.get().getUserPass(), password)){
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials");
         }
+        */
+
+        if(!encoder.matches(userOpt.get().getUserPass(), password)){
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials");
+        }
+
 
         String code = UUID.randomUUID().toString();
 

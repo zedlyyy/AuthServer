@@ -60,9 +60,19 @@ public class TokenEndpoint {
 
     Client currentClient = optionalClient.get();
 
+    /* 
     if(!currentClient.getClientScrect().equals(clientSecret)){
         return ResponseEntity.badRequest().body("Client secret wrong !");
     }
+    */
+
+    //Hashed Secret
+    BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+
+    if(!encoder.matches(currentClient.getClientScrect(), clientSecret)){
+        return ResponseEntity.badRequest().body("Client secret wrong !");
+    }
+
 
     if(!currentClient.getClientURL().equals(clientURL)){
         return ResponseEntity.badRequest().body("Client URL wrong !");
