@@ -12,6 +12,10 @@ By Pedro Galego (72298) and Pedro Mascarenhas (63240)
 2. Terminal
    cd AuthServer
    ./mvnw spring-boot:run
+3. Docker
+   Open Docker
+   docker build -t authserver .
+   docker run -p 8080:8080 authserver
 
 ### Deployed
 AuthServerURL: https://authserver-9q8t.onrender.com
