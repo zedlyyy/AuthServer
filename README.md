@@ -39,14 +39,14 @@ body:
 }  
 
 2. Create user
-POST
-{authServerURL}/register/user
+POST  
+{authServerURL}/register/user  
 
-body:
-{
-  "userId": "user1",
-  "userPass": "password"
-}
+body:  
+{  
+  "userId": "user1",  
+  "userPass": "password"  
+}  
 
 3. open on browser {clientURL}/login and proceed with Oauth process.
    
