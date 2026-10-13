@@ -1,4 +1,15 @@
 # AuthServer for the Software Security class.
+
+## Overview
+
+Academic software security project implementing an OAuth-based authorization server with a companion client application. It supports registering users and clients and testing the authorization flow through a browser or HTTP requests.
+
+**Technologies:** Java, Spring Boot, Maven, Docker, HTTP APIs, OAuth.
+
+**Key components:** Authorization server, client application, user/client registration endpoints, and local/container deployment.
+
+---
+
 By Pedro Galego (72298) and Pedro Mascarenhas (63240)
 
 
